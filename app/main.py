@@ -25,8 +25,11 @@ app.add_middleware(
 app.include_router(registration.router)
 app.include_router(authentication.router)
 
-asyncio.run(init_models())
-
+@app.on_event("startup")
+async def on_startup():
+    logger.info("Creating database tables...")
+    await init_models()
+    logger.info("Database tables created.")
 
 @app.get("/")
 async def root():
