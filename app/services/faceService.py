@@ -5,16 +5,14 @@ from fastapi import Depends
 from datetime import datetime
 from sqlalchemy import select
 from app.database import get_db
-from app.main import face_recognition
 from app.models.models import StudentFace
 from app.services import FaceRecognition
 from typing import Tuple, Optional
 from sqlalchemy.ext.asyncio import AsyncSession
 
-
 class FaceService:
     def __init__(self, db: AsyncSession):
-        self.faceRecognition = face_recognition
+        self.faceRecognition = FaceRecognition(threshold=0.65)
         self.logger = logging.getLogger(__name__)
         self.db = db
 
