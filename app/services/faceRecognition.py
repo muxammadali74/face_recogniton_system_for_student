@@ -3,9 +3,8 @@ import numpy as np
 from insightface.app import FaceAnalysis
 
 class FaceRecognition():
-    def __init__(self,  model='buffalo_s',root="app/services/models/models", threshold=0.65, device=-1,):
-        self.app = FaceAnalysis(name=model, root=root,
-                           providers=['CPUExecutionProvider', 'CUDAExecutionProvider'])
+    def __init__(self, app, model='buffalo_s',root="app/services/models/models", threshold=0.65, device=-1,):
+        self.app = app
         self.app.prepare(ctx_id=device)
         self.threshold = threshold
 

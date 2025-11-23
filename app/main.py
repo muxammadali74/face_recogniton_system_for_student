@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 from app.database import init_models
 from app.services import FaceRecognition
+from insightface.app import FaceAnalysis
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -26,7 +27,9 @@ app.add_middleware(
 app.include_router(registration.router)
 app.include_router(authentication.router)
 
-face_recognition = FaceRecognition(threshold=0.65)
+
+face_recognition_app = FaceAnalysis(name='buffalo_s', root='app/services/models/models',
+                           providers=['CPUExecutionProvider'])
 
 @app.on_event("startup")
 async def on_startup():

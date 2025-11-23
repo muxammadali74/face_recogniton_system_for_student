@@ -9,10 +9,11 @@ from app.models.models import StudentFace
 from app.services import FaceRecognition
 from typing import Tuple, Optional
 from sqlalchemy.ext.asyncio import AsyncSession
+from app.main import face_recognition_app
 
 class FaceService:
     def __init__(self, db: AsyncSession):
-        self.faceRecognition = FaceRecognition(threshold=0.65)
+        self.faceRecognition = FaceRecognition(app=face_recognition_app,threshold=0.65)
         self.logger = logging.getLogger(__name__)
         self.db = db
 
