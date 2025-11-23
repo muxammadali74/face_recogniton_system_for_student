@@ -2,6 +2,8 @@ import logging
 from fastapi import FastAPI
 from app.routers import registration, authentication
 from fastapi.middleware.cors import CORSMiddleware
+import asyncio
+from app.database import init_models
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -23,6 +25,7 @@ app.add_middleware(
 app.include_router(registration.router)
 app.include_router(authentication.router)
 
+asyncio.run(init_models())
 
 
 @app.get("/")
