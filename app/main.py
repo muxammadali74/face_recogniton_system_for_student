@@ -1,0 +1,30 @@
+import logging
+from fastapi import FastAPI
+from app.routers import registration, authentication
+from fastapi.middleware.cors import CORSMiddleware
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+app = FastAPI(
+    title="Student Face Recognition API",
+    description="Talabalarning yuzini aniqlash uchun API",
+    version="1.0.0"
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(registration.router)
+app.include_router(authentication.router)
+
+
+
+@app.get("/")
+async def root():
+    return {"message": "Face Recognition API ishlamoqda!"}

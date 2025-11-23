@@ -1,0 +1,5 @@
+.env
+frontend
+students_images
+app/services/models/models/*
+app/database/create_table.py
